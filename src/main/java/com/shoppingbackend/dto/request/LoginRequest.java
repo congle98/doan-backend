@@ -1,4 +1,4 @@
-package com.shoppingbackend.dto.response;
+package com.shoppingbackend.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JwtResponse {
-    String token;
+public class LoginRequest {
+    String username;
+    String password;
+
 }

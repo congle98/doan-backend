@@ -1,10 +1,8 @@
 package com.shoppingbackend.services.role;
-
 import com.shoppingbackend.models.Role;
 import com.shoppingbackend.repositories.IRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
