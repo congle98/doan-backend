@@ -2,6 +2,8 @@ package com.shoppingbackend.services.user;
 
 import com.shoppingbackend.dto.request.UserCreateRequest;
 import com.shoppingbackend.dto.request.UserUpdateRequest;
+import com.shoppingbackend.exceptions.EmailFoundException;
+import com.shoppingbackend.exceptions.UserFoundException;
 import com.shoppingbackend.models.Role;
 import com.shoppingbackend.models.User;
 import com.shoppingbackend.repositories.IRoleRepository;
@@ -40,7 +42,13 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public User save(UserCreateRequest userCreateRequest)  {
+    public User save(UserCreateRequest userCreateRequest) throws Exception  {
+        if(userRepository.findByUsername(userCreateRequest.getUsername()).isPresent()){
+            throw new UserFoundException();
+        }
+        if(userRepository.findByEmail(userCreateRequest.getEmail()).isPresent()){
+            throw new EmailFoundException();
+        }
         User user = new User();
         user.setUsername(userCreateRequest.getUsername());
         user.setEmail(userCreateRequest.getEmail());
@@ -53,8 +61,14 @@ public class UserService implements IUserService{
     }
 
     @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
     public User update(UserUpdateRequest userUpdateRequest){
         User user = userRepository.findById(userUpdateRequest.getId()).get();
+        user.setPassword(bCryptPasswordEncoder.encode(userUpdateRequest.getPassword()));
         return userRepository.save(user);
     }
 

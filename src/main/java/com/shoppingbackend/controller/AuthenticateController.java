@@ -5,6 +5,7 @@ import com.shoppingbackend.dto.request.JwtRequest;
 import com.shoppingbackend.dto.request.UserCreateRequest;
 import com.shoppingbackend.dto.request.UserUpdateRequest;
 import com.shoppingbackend.dto.response.JwtResponse;
+import com.shoppingbackend.exceptions.EmailFoundException;
 import com.shoppingbackend.exceptions.UserFoundException;
 import com.shoppingbackend.models.Role;
 import com.shoppingbackend.models.User;
@@ -69,11 +70,7 @@ public class AuthenticateController {
     }
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody UserCreateRequest userRequestCreate) throws Exception {
-        if(userService.findByUserName(userRequestCreate.getUsername()).isPresent()){
-            throw new UserFoundException();
-        }
         User userRp = userService.save(userRequestCreate);
-        //nếu tài khoản tồn tại thì thows ra 1 userfoundexception đã tạo hoặc ra luôn exception
         return new ResponseEntity<>(userRp, HttpStatus.CREATED);
 
 

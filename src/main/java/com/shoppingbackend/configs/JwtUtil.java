@@ -13,7 +13,7 @@ import java.util.Date;
 public class JwtUtil {
     private static  final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
-    private String jwtSecret = "nhom4";
+    private String jwtSecret = "congdeptrai";
 
     //    thời gian 1 ngày
     private int jwtExpirationMs = 86400000;
