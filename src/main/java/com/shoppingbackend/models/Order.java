@@ -1,6 +1,7 @@
 package com.shoppingbackend.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -10,7 +11,8 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Entity
-@Table
+@Table(name = "orders")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
@@ -26,6 +28,7 @@ public class Order {
 
     @CreationTimestamp
     private Date dateCreated;
+
     @UpdateTimestamp
     private Date lastUpdated;
 
@@ -33,7 +36,6 @@ public class Order {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
     private User customer;
 
     @OneToOne(cascade = CascadeType.ALL)

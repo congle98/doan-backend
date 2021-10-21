@@ -9,6 +9,7 @@ import java.util.Optional;
 public class RoleService implements IRoleService{
     @Autowired
     private IRoleRepository roleRepository;
+
     @Override
     public Iterable<Role> findAll() {
         return roleRepository.findAll();
@@ -20,14 +21,16 @@ public class RoleService implements IRoleService{
     }
 
     @Override
-    public void delete(Long id) {
-
-    }
-
-
-
-    @Override
     public Role save(Role role) {
         return null;
+    }
+
+    @Override
+    public Role update(Role role) {
+        return null;
+    }
+
+    @Override
+    public void delete(Long id) {
     }
 }

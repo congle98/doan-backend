@@ -5,6 +5,7 @@ import java.util.Optional;
 public interface IRoleService {
      Iterable<Role> findAll();
      Optional<Role> findById(Long id);
-     void delete(Long id);
      Role save(Role role);
+     Role update(Role role);
+     void delete(Long id);
 }

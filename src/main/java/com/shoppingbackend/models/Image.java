@@ -1,5 +1,6 @@
 package com.shoppingbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,12 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String url;
+
+    @Column(length = 1000)
+    private String imageUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    @JsonIgnore
+    private Book book;
 }

@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/auth")
@@ -19,14 +17,13 @@ public class AuthenticateController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws Exception {
-        User user = userService.findByUserName(loginRequest.getUsername()).get();
-        return new ResponseEntity<>(
-              user, HttpStatus.OK);
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) throws Exception {
+        User user = userService.login(loginRequest).get();
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
-    @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody UserCreateRequest userRequestCreate) throws Exception {
-        User userRp = userService.save(userRequestCreate);
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody UserCreateRequest userRequestCreate) throws Exception {
+        User userRp = userService.register(userRequestCreate);
         return new ResponseEntity<>(userRp, HttpStatus.CREATED);
     }
     @PutMapping("/update")
