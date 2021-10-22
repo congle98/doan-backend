@@ -13,4 +13,6 @@ public interface IBookService {
     Book update(Book book);
     void delete(Long id);
     Page<Book> findAllByActive(Pageable pageable);
+    Page<Book> findAllByContextContaining(String context, Pageable pageable);
+    Page<Book> finAllByActiveAndCategoryId(Long id, Pageable pageable);
 }

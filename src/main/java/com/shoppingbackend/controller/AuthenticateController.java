@@ -1,6 +1,6 @@
 package com.shoppingbackend.controller;
 import com.shoppingbackend.dto.request.LoginRequest;
-import com.shoppingbackend.dto.request.UserCreateRequest;
+import com.shoppingbackend.dto.request.RegisterRequest;
 import com.shoppingbackend.dto.request.UserUpdateRequest;
 import com.shoppingbackend.models.User;
 import com.shoppingbackend.services.user.IUserService;
@@ -22,9 +22,9 @@ public class AuthenticateController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody UserCreateRequest userRequestCreate) throws Exception {
-        User userRp = userService.register(userRequestCreate);
-        return new ResponseEntity<>(userRp, HttpStatus.CREATED);
+    public ResponseEntity<User> register(@RequestBody RegisterRequest registerRequest) throws Exception {
+        User user = userService.register(registerRequest);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
     @PutMapping("/update")
     public ResponseEntity<?>updateUser(@RequestBody UserUpdateRequest userUpdateRequest){

@@ -1,7 +1,7 @@
 package com.shoppingbackend.services.user;
 import com.shoppingbackend.configs.MD5Library;
 import com.shoppingbackend.dto.request.LoginRequest;
-import com.shoppingbackend.dto.request.UserCreateRequest;
+import com.shoppingbackend.dto.request.RegisterRequest;
 import com.shoppingbackend.dto.request.UserUpdateRequest;
 import com.shoppingbackend.exceptions.AccountLockedException;
 import com.shoppingbackend.exceptions.EmailFoundException;
@@ -19,6 +19,10 @@ public class UserService implements IUserService{
     private IUserRepository userRepository;
 
 
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
     @Override
     public Iterable<User> findAll() {
@@ -49,7 +53,12 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public User register(UserCreateRequest userCreateRequest) throws Exception  {
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User register(RegisterRequest userCreateRequest) throws Exception  {
         if(userRepository.findByUsername(userCreateRequest.getUsername()).isPresent()){
             throw new UserNameFoundException();
         }

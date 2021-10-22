@@ -1,5 +1,6 @@
 package com.shoppingbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,8 @@ public class Book {
 
     private boolean active = true;
 
+    private int sold;
+
     @CreationTimestamp
     private Date dateCreated;
 
@@ -48,4 +51,9 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "book_category_id")
     private BookCategory bookCategory;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<OrderItem>orderItem = new ArrayList<>();
+
 }

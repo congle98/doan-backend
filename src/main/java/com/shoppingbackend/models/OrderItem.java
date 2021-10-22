@@ -1,6 +1,7 @@
 package com.shoppingbackend.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +23,9 @@ public class OrderItem {
 
     private int quantity;
 
-    private Long productId;
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

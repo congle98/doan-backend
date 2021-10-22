@@ -22,9 +22,23 @@ public class Order {
 
     private int totalQuantity;
 
+    private String orderTrackingNumber;
+
     private BigDecimal totalPrice;
 
-    private String status;
+    @ManyToOne
+    private OrderStatus status;
+
+    private String addressDetail;
+
+    @ManyToOne
+    private City city;
+
+    private String customerName;
+
+    private String customerEmail;
+
+    private String customerPhone;
 
     @CreationTimestamp
     private Date dateCreated;
@@ -36,8 +50,17 @@ public class Order {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     private User customer;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Address shippingAddress;
+
+    public void add(OrderItem item) {
+        if(item != null){
+            if(orderItems == null){
+                orderItems = new ArrayList<>();
+            }
+            orderItems.add(item);
+            item.setOrder(this);
+        }
+    }
 }

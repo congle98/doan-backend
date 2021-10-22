@@ -24,6 +24,16 @@ public class BookService implements IBookService {
     }
 
     @Override
+    public Page<Book> findAllByContextContaining(String context, Pageable pageable) {
+        return bookRepository.findAllByActiveAndNameContainingOrBookCategoryNameContainingOrAuthorNameContaining(true,context,context,context,pageable);
+    }
+
+    @Override
+    public Page<Book> finAllByActiveAndCategoryId(Long id, Pageable pageable) {
+        return bookRepository.findAllByActiveAndBookCategoryId(true,id,pageable);
+    }
+
+    @Override
     public Optional<Book> findById(Long id) {
         return bookRepository.findById(id);
     }

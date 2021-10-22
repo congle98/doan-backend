@@ -11,17 +11,10 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
+public class OrderStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String addressDetail;
-
-    private String city;
-
-    @OneToOne
-    private Order order;
-
-
+    private String name;
 }
