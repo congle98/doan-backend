@@ -45,8 +45,7 @@ public class Book {
     @ManyToOne
     private Author author;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private List<Image> images = new ArrayList<>();
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "book_category_id")

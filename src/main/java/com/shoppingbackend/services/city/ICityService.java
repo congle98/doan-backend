@@ -1,7 +1,6 @@
 package com.shoppingbackend.services.city;
 
 import com.shoppingbackend.models.City;
-import com.shoppingbackend.models.Image;
 
 import java.util.Optional;
 
