@@ -52,4 +52,11 @@ public class BookService implements IBookService {
     public void delete(Long id) {
         bookRepository.deleteById(id);
     }
+
+    @Override
+    public Book changeStatus(Long id) {
+        Book book = bookRepository.getById(id);
+        book.setActive(!book.isActive());
+        return bookRepository.save(book);
+    }
 }

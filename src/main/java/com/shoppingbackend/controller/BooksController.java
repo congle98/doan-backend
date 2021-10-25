@@ -36,5 +36,13 @@ public class BooksController {
         System.out.println(bookPage);
         return new ResponseEntity<>(bookPage,HttpStatus.OK);
     }
+    @GetMapping("")
+    public ResponseEntity<Iterable<Book>> findAllByAdmin(){
+        return new ResponseEntity<>(bookService.findAll(),HttpStatus.OK);
+    }
+    @PutMapping("")
+    public ResponseEntity<Book> changeStatus(@RequestParam Long bookId){
+        return new ResponseEntity<>(bookService.changeStatus(bookId),HttpStatus.OK);
+    }
 
 }

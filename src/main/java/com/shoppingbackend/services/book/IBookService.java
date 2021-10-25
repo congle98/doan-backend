@@ -15,4 +15,5 @@ public interface IBookService {
     Page<Book> findAllByActive(Pageable pageable);
     Page<Book> findAllByContextContaining(String context, Pageable pageable);
     Page<Book> finAllByActiveAndCategoryId(Long id, Pageable pageable);
+    Book changeStatus(Long id);
 }
