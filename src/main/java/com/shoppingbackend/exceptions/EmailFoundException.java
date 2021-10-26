@@ -2,7 +2,7 @@ package com.shoppingbackend.exceptions;
 
 public class EmailFoundException extends Exception{
     public EmailFoundException() {
-        super("email đã tồn tại");
+        super("Xin lỗi email đã tồn tại !");
     }
 
     public EmailFoundException(String message) {

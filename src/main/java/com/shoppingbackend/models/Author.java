@@ -22,6 +22,8 @@ public class Author {
 
     private String name;
 
+    private boolean active = true;
+
     @Column(length = 1000)
     private String introduce;
 

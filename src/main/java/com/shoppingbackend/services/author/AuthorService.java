@@ -33,6 +33,18 @@ public class AuthorService implements IAuthorService {
     }
 
     @Override
+    public Author changeStatus(Long id) {
+        Author author = authorRepository.findById(id).get();
+        author.setActive(!author.isActive());
+        return authorRepository.save(author);
+    }
+
+    @Override
+    public Iterable<Author> findAllActive() {
+        return authorRepository.findAllByActive(true);
+    }
+
+    @Override
     public void delete(Long id) {
         authorRepository.deleteById(id);
     }

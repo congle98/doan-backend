@@ -17,8 +17,17 @@ public class AuthorsController {
     public ResponseEntity<Iterable<Author>> findAllAuthor(){
         return new ResponseEntity<>(authorService.findAll(), HttpStatus.OK);
     }
-    @PutMapping("")
-    public ResponseEntity<Author> updateAuthor( @RequestBody Author author){
-        return new ResponseEntity<>(authorService.update(author),HttpStatus.OK);
+    @GetMapping("/findAllActive")
+    public ResponseEntity<Iterable<Author>> findAllActive(){
+        return new ResponseEntity<>(authorService.findAllActive(), HttpStatus.OK);
+    }
+    @PostMapping("")
+    public ResponseEntity<Author> saveAuthor(@RequestBody Author author){
+        System.out.println(author+"dsfsdfsdfds");
+        return new ResponseEntity<>(authorService.save(author),HttpStatus.OK);
+    }
+    @PutMapping("/change-status")
+    public ResponseEntity<Author> changeStatus(@RequestBody Long id){
+        return new ResponseEntity<>(authorService.changeStatus(id),HttpStatus.OK);
     }
 }

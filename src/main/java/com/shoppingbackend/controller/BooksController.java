@@ -40,9 +40,17 @@ public class BooksController {
     public ResponseEntity<Iterable<Book>> findAllByAdmin(){
         return new ResponseEntity<>(bookService.findAll(),HttpStatus.OK);
     }
-    @PutMapping("")
-    public ResponseEntity<Book> changeStatus(@RequestParam Long bookId){
+    @PutMapping("/change-status")
+    public ResponseEntity<Book> changeStatus(@RequestBody Long bookId){
         return new ResponseEntity<>(bookService.changeStatus(bookId),HttpStatus.OK);
+    }
+    @PostMapping("")
+    public ResponseEntity<Book> createBook(@RequestBody Book book){
+        return new ResponseEntity<>(bookService.save(book),HttpStatus.OK);
+    }
+    @PutMapping("")
+    public ResponseEntity<Book> updateBook(@RequestBody Book book){
+        return new ResponseEntity<>(bookService.update(book),HttpStatus.OK);
     }
 
 }

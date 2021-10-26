@@ -40,6 +40,9 @@ public class BookService implements IBookService {
 
     @Override
     public Book save(Book book) {
+        if(book.getImageUrl().trim().equals("") || book.getImageUrl() == null){
+            book.setImageUrl("https://cdn1.vectorstock.com/i/1000x1000/77/85/closed-old-book-in-brown-cover-vector-9187785.jpg");
+        }
         return bookRepository.save(book);
     }
 
