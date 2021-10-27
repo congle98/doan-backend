@@ -24,6 +24,9 @@ public class OrdersController {
         if(id != 0){
             ordersPage = orderService.getAllByCustomer(id);
         }
+        else {
+            ordersPage = orderService.findAll();
+        }
         return new ResponseEntity<>(ordersPage, HttpStatus.OK);
     }
     @PutMapping("/change-status/{orderId}")

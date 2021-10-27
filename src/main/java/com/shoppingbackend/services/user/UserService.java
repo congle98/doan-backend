@@ -1,4 +1,5 @@
 package com.shoppingbackend.services.user;
+
 import com.shoppingbackend.configs.MD5Library;
 import com.shoppingbackend.dto.request.LoginRequest;
 import com.shoppingbackend.dto.request.RegisterRequest;
@@ -12,7 +13,9 @@ import com.shoppingbackend.models.User;
 import com.shoppingbackend.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
+
 @Service
 public class UserService implements IUserService{
     @Autowired
@@ -26,7 +29,7 @@ public class UserService implements IUserService{
 
     @Override
     public Iterable<User> findAll() {
-        return userRepository.findAll();
+        return userRepository.findAllByRoleId(1l);
     }
 
     @Override
@@ -84,5 +87,10 @@ public class UserService implements IUserService{
         return userRepository.save(user);
     }
 
-
+    @Override
+    public User changeActive(Long id) {
+        User user = userRepository.findById(id).get();
+        user.setStatus(!user.isStatus());
+        return userRepository.save(user);
+    }
 }

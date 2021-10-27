@@ -14,5 +14,6 @@ public interface IUserService {
     Optional<User> login(LoginRequest loginRequest) throws Exception;
     User register(RegisterRequest userCreateRequest) throws Exception;
     User update(UserUpdateRequest userUpdateRequest);
+    User changeActive(Long id);
 
 }
