@@ -19,8 +19,4 @@ public class MD5Library {
         }
         return result;
     }
-
-    public static void main(String[] args) {
-        System.out.println(MD5Library.md5("123456"));;
-    }
 }
