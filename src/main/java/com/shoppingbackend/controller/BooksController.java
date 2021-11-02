@@ -22,7 +22,7 @@ public class BooksController {
         Pageable pageable = PageRequest.of(page,size);
         Page<Book> booksPage;
         if(id != 0){
-            booksPage = bookService.finAllByActiveAndCategoryId(id,pageable);
+            booksPage = bookService.findAllByActiveAndCategoryId(id,pageable);
         }
         else {
             booksPage = bookService.findAllByActive(pageable);
@@ -52,5 +52,15 @@ public class BooksController {
     public ResponseEntity<Book> updateBook(@RequestBody Book book){
         return new ResponseEntity<>(bookService.update(book),HttpStatus.OK);
     }
+
+    @GetMapping("/top-sale")
+    public ResponseEntity<Iterable<Book>> topSale(){
+        return new ResponseEntity<>(bookService.findAllTopSale(),HttpStatus.OK);
+    }
+    @GetMapping("/top-sold")
+    public ResponseEntity<Iterable<Book>> topSold(){
+        return new ResponseEntity<>(bookService.findAllTopSold(),HttpStatus.OK);
+    }
+
 
 }

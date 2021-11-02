@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -29,7 +30,7 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public Page<Book> finAllByActiveAndCategoryId(Long id, Pageable pageable) {
+    public Page<Book> findAllByActiveAndCategoryId(Long id, Pageable pageable) {
         return bookRepository.findAllByActiveAndBookCategoryId(true,id,pageable);
     }
 
@@ -61,5 +62,17 @@ public class BookService implements IBookService {
         Book book = bookRepository.getById(id);
         book.setActive(!book.isActive());
         return bookRepository.save(book);
+    }
+
+    @Override
+    public Iterable<Book> findAllTopSale() {
+        ArrayList<Book> books = (ArrayList<Book>) bookRepository.findAllByActiveOrderBySalePriceDesc(true);
+        return books.subList(0,10);
+    }
+
+    @Override
+    public Iterable<Book> findAllTopSold() {
+        ArrayList<Book> books = (ArrayList<Book>) bookRepository.findAllByActiveOrderBySoldDesc(true);
+        return books.subList(0,5);
     }
 }

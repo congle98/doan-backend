@@ -14,6 +14,8 @@ public interface IBookService {
     void delete(Long id);
     Page<Book> findAllByActive(Pageable pageable);
     Page<Book> findAllByContextContaining(String context, Pageable pageable);
-    Page<Book> finAllByActiveAndCategoryId(Long id, Pageable pageable);
+    Page<Book> findAllByActiveAndCategoryId(Long id, Pageable pageable);
     Book changeStatus(Long id);
+    Iterable<Book> findAllTopSale();
+    Iterable<Book> findAllTopSold();
 }
