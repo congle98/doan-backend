@@ -73,6 +73,6 @@ public class BookService implements IBookService {
     @Override
     public Iterable<Book> findAllTopSold() {
         ArrayList<Book> books = (ArrayList<Book>) bookRepository.findAllByActiveOrderBySoldDesc(true);
-        return books.subList(0,5);
+        return books.subList(0,4);
     }
 }
