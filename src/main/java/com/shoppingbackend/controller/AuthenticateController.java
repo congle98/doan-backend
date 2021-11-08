@@ -26,10 +26,10 @@ public class AuthenticateController {
         User user = userService.register(registerRequest);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
-    @PutMapping("/update")
-    public ResponseEntity<?>updateUser(@RequestBody UserUpdateRequest userUpdateRequest){
-        return new ResponseEntity<>(userService.update(userUpdateRequest),HttpStatus.OK);
-    }
+//    @PutMapping("/update")
+//    public ResponseEntity<?>updateUser(@RequestBody UserUpdateRequest userUpdateRequest){
+//        return new ResponseEntity<>(userService.update(userUpdateRequest),HttpStatus.OK);
+//    }
     @ExceptionHandler(Exception.class)
     public  ResponseEntity<?> exceptionHandler(Exception ex){
         return new ResponseEntity<>(ex,HttpStatus.NOT_FOUND);

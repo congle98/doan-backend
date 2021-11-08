@@ -13,7 +13,7 @@ public interface IUserService {
     void delete(Long id);
     Optional<User> login(LoginRequest loginRequest) throws Exception;
     User register(RegisterRequest userCreateRequest) throws Exception;
-    User update(UserUpdateRequest userUpdateRequest);
+    User update(User userRq);
     User changeActive(Long id);
 
 }

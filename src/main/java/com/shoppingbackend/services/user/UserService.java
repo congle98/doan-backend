@@ -81,9 +81,12 @@ public class UserService implements IUserService{
         return userRepository.save(user);
     }
     @Override
-    public User update(UserUpdateRequest userUpdateRequest){
-        User user = userRepository.findById(userUpdateRequest.getId()).get();
-        user.setPassword(MD5Library.md5(userUpdateRequest.getPassword()));
+    public User update(User userRq){
+        User user = userRepository.findById(userRq.getId()).get();
+        user.setEmail(userRq.getEmail());
+        user.setFullName(userRq.getFullName());
+        user.setAvatarUrl(userRq.getAvatarUrl());
+        user.setPhone(userRq.getPhone());
         return userRepository.save(user);
     }
 

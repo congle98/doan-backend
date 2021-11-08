@@ -22,4 +22,8 @@ public class UsersController {
         return new ResponseEntity<>(userService.changeActive(id),HttpStatus.OK);
     }
 
+    @PutMapping("/update-profile")
+    public ResponseEntity<User> updateProfile(@RequestBody User user){
+        return new ResponseEntity<>(userService.update(user),HttpStatus.OK);
+    }
 }
