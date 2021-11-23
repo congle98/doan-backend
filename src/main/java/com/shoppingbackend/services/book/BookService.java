@@ -75,4 +75,14 @@ public class BookService implements IBookService {
         ArrayList<Book> books = (ArrayList<Book>) bookRepository.findAllByActiveOrderBySoldDesc(true);
         return books.subList(0,4);
     }
+
+    @Override
+    public Iterable<Book> findAllByCategory(Long id) {
+        return bookRepository.findAllByActiveAndBookCategoryId(true,id);
+    }
+
+    @Override
+    public Iterable<Book> findAllByAuthor(Long id) {
+        return bookRepository.findAllByActiveAndAuthorId(true,id);
+    }
 }

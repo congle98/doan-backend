@@ -61,6 +61,19 @@ public class BooksController {
     public ResponseEntity<Iterable<Book>> topSold(){
         return new ResponseEntity<>(bookService.findAllTopSold(),HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> getById(@PathVariable Long id){
+        return new ResponseEntity<>(bookService.findById(id).get(),HttpStatus.OK);
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Iterable<Book>> getByCategory(@PathVariable Long id){
+        return new ResponseEntity<>(bookService.findAllByCategory(id),HttpStatus.OK);
+    }
+    @GetMapping("/author/{id}")
+    public ResponseEntity<Iterable<Book>> getByAuthor(@PathVariable Long id){
+        return new ResponseEntity<>(bookService.findAllByAuthor(id),HttpStatus.OK);
+    }
 
 
 }

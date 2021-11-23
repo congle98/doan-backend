@@ -1,25 +1,25 @@
 package com.shoppingbackend.services.user;
 
 import com.shoppingbackend.configs.MD5Library;
-import com.shoppingbackend.dto.request.LoginRequest;
-import com.shoppingbackend.dto.request.RegisterRequest;
-import com.shoppingbackend.dto.request.UserUpdateRequest;
-import com.shoppingbackend.exceptions.AccountLockedException;
-import com.shoppingbackend.exceptions.EmailFoundException;
-import com.shoppingbackend.exceptions.LoginFailException;
-import com.shoppingbackend.exceptions.UserNameFoundException;
+import com.shoppingbackend.dto.request.*;
+import com.shoppingbackend.exceptions.*;
 import com.shoppingbackend.models.Role;
 import com.shoppingbackend.models.User;
 import com.shoppingbackend.repositories.IUserRepository;
+import com.shoppingbackend.services.email.EmailServiceImpl;
+import com.shoppingbackend.services.email.EmailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Service
 public class UserService implements IUserService{
     @Autowired
     private IUserRepository userRepository;
+    @Autowired
+    private EmailServiceImpl emailService;
 
 
     @Override
@@ -78,6 +78,7 @@ public class UserService implements IUserService{
         Role role = new Role();
         role.setId(1L);
         user.setRole(role);
+        emailService.registerEmail(user.getEmail(),user.getUsername());
         return userRepository.save(user);
     }
     @Override
@@ -95,5 +96,30 @@ public class UserService implements IUserService{
         User user = userRepository.findById(id).get();
         user.setStatus(!user.isStatus());
         return userRepository.save(user);
+    }
+
+    @Override
+    public User changePassword(ChangePasswordRequest request) throws Exception {
+        User user = userRepository.findById(request.getId()).get();
+        if(!user.getPassword().equals(MD5Library.md5(request.getOldPassword()))){
+           throw new OldPasswordFoundException();
+        }
+        else {
+            user.setPassword(MD5Library.md5(request.getNewPassword()));
+            return userRepository.save(user);
+        }
+    }
+
+    @Override
+    public void resetPassword(ResetPasswordRequest request, HttpServletRequest http) throws Exception {
+        Optional<User> user = userRepository.findByUsernameAndEmail(request.getUsername(),request.getEmail());
+        if(!user.isPresent()){
+            throw new UserNameOrEmailNotFoundException();
+        }
+        String newPassword = user.get().getEmail()+user.get().getUsername()+"123";
+        user.get().setPassword(MD5Library.md5(newPassword));
+//        String url = EmailUtils.getDomainName(http);
+        userRepository.save(user.get());
+        emailService.sendResetPassword(newPassword,user.get().getEmail(),user.get().getFullName());
     }
 }

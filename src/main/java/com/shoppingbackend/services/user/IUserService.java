@@ -1,8 +1,9 @@
 package com.shoppingbackend.services.user;
-import com.shoppingbackend.dto.request.LoginRequest;
-import com.shoppingbackend.dto.request.RegisterRequest;
-import com.shoppingbackend.dto.request.UserUpdateRequest;
+import com.shoppingbackend.dto.request.*;
+import com.shoppingbackend.exceptions.OldPasswordFoundException;
 import com.shoppingbackend.models.User;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 public interface IUserService {
@@ -15,5 +16,7 @@ public interface IUserService {
     User register(RegisterRequest userCreateRequest) throws Exception;
     User update(User userRq);
     User changeActive(Long id);
+    User changePassword(ChangePasswordRequest request) throws Exception;
+    void resetPassword(ResetPasswordRequest request, HttpServletRequest http) throws Exception;
 
 }

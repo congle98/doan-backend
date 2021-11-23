@@ -18,4 +18,6 @@ public interface IBookService {
     Book changeStatus(Long id);
     Iterable<Book> findAllTopSale();
     Iterable<Book> findAllTopSold();
+    Iterable<Book> findAllByCategory(Long id);
+    Iterable<Book> findAllByAuthor(Long id);
 }

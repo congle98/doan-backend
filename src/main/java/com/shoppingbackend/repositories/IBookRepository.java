@@ -12,4 +12,6 @@ public interface IBookRepository extends JpaRepository<Book,Long> {
     Page<Book> findAllByActiveAndBookCategoryId(Boolean active, Long id, Pageable pageable);
     Iterable<Book> findAllByActiveOrderBySalePriceDesc(Boolean active);
     Iterable<Book> findAllByActiveOrderBySoldDesc(Boolean active);
+    Iterable<Book> findAllByActiveAndBookCategoryId(Boolean active,Long id);
+    Iterable<Book> findAllByActiveAndAuthorId(Boolean active,Long id);
 }

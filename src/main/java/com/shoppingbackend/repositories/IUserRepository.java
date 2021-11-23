@@ -12,4 +12,5 @@ public interface IUserRepository extends JpaRepository<User,Long> {
     Optional<User> findByEmail(String email);
     Optional<User> findByUsernameAndPassword(String username, String password);
     Iterable<User> findAllByRoleId(Long roleid);
+    Optional<User> findByUsernameAndEmail(String username, String email);
 }
