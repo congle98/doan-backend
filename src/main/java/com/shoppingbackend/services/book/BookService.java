@@ -59,7 +59,7 @@ public class BookService implements IBookService {
 
     @Override
     public Book changeStatus(Long id) {
-        Book book = bookRepository.getById(id);
+        Book book = bookRepository.findById(id).get();
         book.setActive(!book.isActive());
         return bookRepository.save(book);
     }
