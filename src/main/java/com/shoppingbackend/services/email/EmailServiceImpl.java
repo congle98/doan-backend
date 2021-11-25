@@ -26,7 +26,7 @@ public class EmailServiceImpl implements EmailSender{
         String mailContent = "<h3>Xin chào <strong>"+ username+"</strong> !</h3>";
         mailContent += "<p>Mật khẩu của bạn đã được thiết lập lại là: <strong>"+password+"</strong></p>";
         mailContent += "<p>Hãy lưu lại mật khẩu và đảm bảo rằng bạn không chia sẻ nó cho bất kỳ ai</p>";
-        mailContent += "<h3>Quay lại Congle Store và bắt đầu mua sắm <a href=\""+"localhost:4200"+"\">VERIFY</a></h3>";
+        mailContent += "<h3>Quay lại Congle Store và bắt đầu mua sắm https://conglestore.netlify.app </h3>";
         mailContent += "<h2>Cảm ơn bạn<br>Congle Store</h2>";
 
         MimeMessage message = mailSender.createMimeMessage();
@@ -46,7 +46,7 @@ public class EmailServiceImpl implements EmailSender{
         String senderName = "Quản trị viên";
         String mailContent = "<h3>Xin chào <strong>"+ username+"</strong> !</h3>";
         mailContent += "<p>Bạn đã đăng ký tài khoản thành công, chào mừng bạn đến với Congle Store</p>";
-        mailContent += "<h3>Quay lại Congle Store và bắt đầu mua sắm <a href=\""+"localhost:4200"+"\">VERIFY</a></h3>";
+        mailContent += "<h3>Quay lại Congle Store và bắt đầu mua sắm https://conglestore.netlify.app </h3>";
         MimeMessage message = mailSender.createMimeMessage();
         message.setContent(mailContent,"text/html; charset=UTF-8");
         MimeMessageHelper helper = new MimeMessageHelper(message);
