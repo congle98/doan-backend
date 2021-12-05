@@ -30,9 +30,13 @@ public class OrdersController {
         return new ResponseEntity<>(ordersPage, HttpStatus.OK);
     }
     @PutMapping("/change-status/{orderId}")
-    public ResponseEntity<Order> changeOrderStatus(@RequestBody Long statusId,@PathVariable Long orderId){
+    public ResponseEntity<Order> changeOrderStatus(@RequestBody Long statusId,@PathVariable Long orderId) throws Exception {
         return new ResponseEntity<>(orderService.changeOrderStatus(orderId,statusId),HttpStatus.OK);
     }
 
+    @ExceptionHandler(Exception.class)
+    public  ResponseEntity<?> exceptionHandler(Exception ex){
+        return new ResponseEntity<>(ex,HttpStatus.NOT_FOUND);
+    }
 
 }

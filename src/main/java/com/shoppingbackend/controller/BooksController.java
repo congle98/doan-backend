@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,26 @@ public class BooksController {
 
 
     @GetMapping("/findAllActive")
-    public ResponseEntity<Page<Book>> findAllActive (@RequestParam Long id, @RequestParam Integer page, @RequestParam Integer size ){
-        Pageable pageable = PageRequest.of(page,size);
+    public ResponseEntity<Page<Book>> findAllActive (@RequestParam Long id, @RequestParam Integer page, @RequestParam Integer size, @RequestParam String sort ){
+        Sort sortList = Sort.by(
+                Sort.Order.asc("name")
+        );
+        if(sort.equals("namedesc")){
+            sortList = Sort.by(
+                    Sort.Order.desc("name")
+            );
+        }
+        if(sort.equals("priceasc")){
+            sortList = Sort.by(
+                    Sort.Order.asc("unitPrice")
+            );
+        }
+        if(sort.equals("pricedesc")){
+            sortList = Sort.by(
+                    Sort.Order.desc("unitPrice")
+            );
+        }
+        Pageable pageable = PageRequest.of(page,size,sortList);
         Page<Book> booksPage;
         if(id != 0){
             booksPage = bookService.findAllByActiveAndCategoryId(id,pageable);
@@ -30,8 +49,26 @@ public class BooksController {
         return new ResponseEntity<>(booksPage, HttpStatus.OK);
     }
     @GetMapping("/search/findByContextContaining")
-    public ResponseEntity<Page<Book>> findAllByContextContaining(@RequestParam String context, @RequestParam Integer page, @RequestParam Integer size) {
-        Pageable pageable = PageRequest.of(page,size);
+    public ResponseEntity<Page<Book>> findAllByContextContaining(@RequestParam String context, @RequestParam Integer page, @RequestParam Integer size, @RequestParam String sort) {
+        Sort sortList = Sort.by(
+                Sort.Order.asc("name")
+        );
+        if(sort.equals("namedesc")){
+            sortList = Sort.by(
+                    Sort.Order.desc("name")
+            );
+        }
+        if(sort.equals("priceasc")){
+            sortList = Sort.by(
+                    Sort.Order.asc("unitPrice")
+            );
+        }
+        if(sort.equals("pricedesc")){
+            sortList = Sort.by(
+                    Sort.Order.desc("unitPrice")
+            );
+        }
+        Pageable pageable = PageRequest.of(page,size,sortList);
         Page<Book> bookPage = bookService.findAllByContextContaining(context,pageable);
         System.out.println(bookPage);
         return new ResponseEntity<>(bookPage,HttpStatus.OK);

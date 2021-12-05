@@ -1,4 +1,5 @@
 package com.shoppingbackend.services.order;
+import com.shoppingbackend.exceptions.DataErrorException;
 import com.shoppingbackend.models.Order;
 import com.shoppingbackend.models.OrderStatus;
 import com.shoppingbackend.repositories.IOrderRepository;
@@ -55,11 +56,13 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Order changeOrderStatus(Long id, Long statusId) {
+    public Order changeOrderStatus(Long id, Long statusId) throws Exception{
         OrderStatus orderStatus = statusService.findById(statusId).get();
         Order order = orderRepository.findById(id).get();
-        order.setStatus(orderStatus);
         if(statusId==2){
+            if(order.getStatus().getId()!=1){
+                throw new DataErrorException();
+            }
             try {
                 emailService.acceptOrder(order.getCustomerEmail(),order.getCustomerName(),order.getOrderTrackingNumber());
             } catch (UnsupportedEncodingException e) {
@@ -69,6 +72,9 @@ public class OrderService implements IOrderService {
             }
         }
         if(statusId==4){
+            if(order.getStatus().getId()!=1){
+                throw new DataErrorException();
+            }
             try {
                 emailService.cancelOrder(order.getCustomerEmail(),order.getCustomerName(),order.getOrderTrackingNumber());
             } catch (UnsupportedEncodingException e) {
@@ -77,6 +83,7 @@ public class OrderService implements IOrderService {
                 e.printStackTrace();
             }
         }
+        order.setStatus(orderStatus);
        return orderRepository.save(order);
     }
 }

@@ -68,6 +68,9 @@ public class UserService implements IUserService{
         if(userRepository.findByEmail(userCreateRequest.getEmail()).isPresent()){
             throw new EmailFoundException();
         }
+        if(userRepository.findByPhone(userCreateRequest.getPhone()).isPresent()){
+            throw new PhoneNumberFoundException();
+        }
         User user = new User();
         user.setUsername(userCreateRequest.getUsername());
         user.setEmail(userCreateRequest.getEmail());
@@ -85,7 +88,7 @@ public class UserService implements IUserService{
     public User update(User userRq) throws Exception {
         User user = userRepository.findById(userRq.getId()).get();
         user.setEmail(userRq.getEmail());
-        if(!userRepository.findByEmail(user.getEmail()).isPresent()){
+        if(userRepository.findByEmail(user.getEmail()).isPresent()){
             if(userRepository.findByEmail(user.getEmail()).get().getId() != user.getId()){
                 throw new EmailFoundException();
             }
@@ -93,6 +96,11 @@ public class UserService implements IUserService{
         user.setFullName(userRq.getFullName());
         user.setAvatarUrl(userRq.getAvatarUrl());
         user.setPhone(userRq.getPhone());
+        if(userRepository.findByPhone(user.getPhone()).isPresent()){
+            if(userRepository.findByPhone(user.getPhone()).get().getId() != user.getId()){
+                throw new PhoneNumberFoundException();
+            }
+        }
         return userRepository.save(user);
     }
 

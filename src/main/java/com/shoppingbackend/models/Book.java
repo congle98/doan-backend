@@ -30,6 +30,8 @@ public class Book {
 
     private BigDecimal price;
 
+    private BigDecimal unitPrice;
+
     private BigDecimal salePrice = BigDecimal.valueOf(0);
 
     private boolean active = true;

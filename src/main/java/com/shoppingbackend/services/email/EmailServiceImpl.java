@@ -75,6 +75,7 @@ public class EmailServiceImpl implements EmailSender{
         helper.setSubject(subject);
 
         mailSender.send(message);
+        System.out.println("gửi thành công"+email);
     }
 
     @Override
@@ -92,5 +93,7 @@ public class EmailServiceImpl implements EmailSender{
         helper.setFrom("conglestore@gmail.com",senderName);
         helper.setTo(email);
         helper.setSubject(subject);
+        System.out.println("gửi thành công"+email);
+        mailSender.send(message);
     }
 }

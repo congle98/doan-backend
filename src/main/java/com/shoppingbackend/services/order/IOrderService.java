@@ -12,5 +12,5 @@ public interface IOrderService {
     Order update(Order order);
     void delete(Long id);
     Iterable<Order> getAllByCustomer(Long id);
-    Order changeOrderStatus(Long id, Long statusId);
+    Order changeOrderStatus(Long id, Long statusId) throws Exception;
 }
