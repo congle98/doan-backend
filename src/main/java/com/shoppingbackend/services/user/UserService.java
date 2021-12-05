@@ -82,9 +82,14 @@ public class UserService implements IUserService{
         return userRepository.save(user);
     }
     @Override
-    public User update(User userRq){
+    public User update(User userRq) throws Exception {
         User user = userRepository.findById(userRq.getId()).get();
         user.setEmail(userRq.getEmail());
+        if(!userRepository.findByEmail(user.getEmail()).isPresent()){
+            if(userRepository.findByEmail(user.getEmail()).get().getId() != user.getId()){
+                throw new EmailFoundException();
+            }
+        }
         user.setFullName(userRq.getFullName());
         user.setAvatarUrl(userRq.getAvatarUrl());
         user.setPhone(userRq.getPhone());

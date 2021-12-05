@@ -2,11 +2,15 @@ package com.shoppingbackend.services.order;
 import com.shoppingbackend.models.Order;
 import com.shoppingbackend.models.OrderStatus;
 import com.shoppingbackend.repositories.IOrderRepository;
+import com.shoppingbackend.services.email.EmailServiceImpl;
 import com.shoppingbackend.services.orderStatus.IOrderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 @Service
@@ -15,6 +19,9 @@ public class OrderService implements IOrderService {
     private IOrderRepository orderRepository;
     @Autowired
     private IOrderStatusService statusService;
+
+    @Autowired
+    private EmailServiceImpl emailService;
 
 
     @Override
@@ -52,6 +59,24 @@ public class OrderService implements IOrderService {
         OrderStatus orderStatus = statusService.findById(statusId).get();
         Order order = orderRepository.findById(id).get();
         order.setStatus(orderStatus);
+        if(statusId==2){
+            try {
+                emailService.acceptOrder(order.getCustomerEmail(),order.getCustomerName(),order.getOrderTrackingNumber());
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
+        if(statusId==4){
+            try {
+                emailService.cancelOrder(order.getCustomerEmail(),order.getCustomerName(),order.getOrderTrackingNumber());
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
        return orderRepository.save(order);
     }
 }

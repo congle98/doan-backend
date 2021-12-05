@@ -27,7 +27,7 @@ public class UsersController {
     }
 
     @PutMapping("/update-profile")
-    public ResponseEntity<User> updateProfile(@RequestBody User user){
+    public ResponseEntity<User> updateProfile(@RequestBody User user) throws Exception {
         return new ResponseEntity<>(userService.update(user),HttpStatus.OK);
     }
     @PutMapping("/change-password")
