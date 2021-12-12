@@ -20,6 +20,13 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public Author(Long id, String name, boolean active, String introduce) {
+        this.id = id;
+        this.name = name;
+        this.active = active;
+        this.introduce = introduce;
+    }
+
     private String name;
 
     private boolean active = true;

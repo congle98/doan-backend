@@ -18,6 +18,12 @@ public class BookCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public BookCategory(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     private String name;
 
     @Column(length = 3000)
