@@ -65,7 +65,7 @@ public class EmailServiceImpl implements EmailSender{
         String mailContent = "<h3>Xin chào <strong>"+ username+"</strong> !</h3>";
         mailContent += "<p>Đơn hàng mã: "+orderNumber+" của bạn đã được xác nhận</p>";
         mailContent += "<h3>Quay lại Congle Store và bắt đầu mua sắm https://conglestore.netlify.app </h3>";
-        mailContent += "<h3>Mọi thông tin xin vui lòng liên hệ : 0342910909 hoặc email: lethanhcongcnhn@gmail.com</h3>";
+        mailContent += "<h3>Mọi thông tin xin vui lòng liên hệ Mr.Công : 0342910909 hoặc email: lethanhcongcnhn@gmail.com</h3>";
         MimeMessage message = mailSender.createMimeMessage();
         message.setContent(mailContent,"text/html; charset=UTF-8");
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -83,9 +83,9 @@ public class EmailServiceImpl implements EmailSender{
         String subject = "Congle Store huỷ đơn hàng";
         String senderName = "Quản trị viên";
         String mailContent = "<h3>Xin chào <strong>"+ username+"</strong> !</h3>";
-        mailContent += "<p>Đơn hàng mã: "+orderNumber+" của bản đã không được chấp nhận</p>";
+        mailContent += "<p>Đơn hàng mã: "+orderNumber+" của bản đã được hủy bỏ</p>";
         mailContent += "<h3>Quay lại Congle Store và bắt đầu mua sắm https://conglestore.netlify.app </h3>";
-        mailContent += "<h3>Mọi thông tin xin vui lòng liên hệ : 0342910909 hoặc email: lethanhcongcnhn@gmail.com</h3>";
+        mailContent += "<h3>Mọi thông tin xin vui lòng liên hệ Mr.Công : 0342910909 hoặc email: lethanhcongcnhn@gmail.com</h3>";
         MimeMessage message = mailSender.createMimeMessage();
         message.setContent(mailContent,"text/html; charset=UTF-8");
         MimeMessageHelper helper = new MimeMessageHelper(message);
